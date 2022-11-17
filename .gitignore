@@ -1,4 +1,5 @@
 # Specific Files to ignore
+www/settings.php
 api/files
 api/install
 api/logs/*
@@ -38,3 +39,7 @@ Desktop.ini
 .gitsecret/keys/random_seed
 !*.secret
 random_seed
+
+mariadb.env
+apache.env
+db.sql

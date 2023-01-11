@@ -61,7 +61,7 @@ class Firmadocr
         return base64_encode(hash('sha256', $strcadena, true));
     }
 
-    public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc, $esEmisor)
+    public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc, $esEmisor = true)
     {
         if (!$pfx = file_get_contents($certificadop12)) {
             echo "Error: No se puede leer el fichero del certificado o no existe en la ruta especificada\n";

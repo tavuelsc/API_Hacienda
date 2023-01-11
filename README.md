@@ -92,9 +92,9 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 ## Necesario para uso local de Docker 
 
-### solicitar:
+### Solicitar:
   - Las variables que se necesitaran en  settings.php
-  - Las vbariables de entorno  que debeen de ser asignados al .env de mysql y de php-apache
+  - Las variables de entorno  que deben de ser asignados al .env de mysql y de php-apache
 
 ### Agregar
   - Se debe de generar la siguiente estructura en la home/`USER`/
@@ -106,4 +106,4 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 ```
   - si no existe el archivo files dentro de www, este se debe de crear.
   - Se debe de cambiar su usuario en el docker-compose.yml en la siguiente linea  ` source: /home/USER/Hacienda/ ` 
-  - Si se desea usar una base de datos ya con algun script este se debe de llamar db.sql y debe de estar en la raiz de el proyecto, o cambar esto en docker-compose.yml en la siguiente linea ` - "./db.sql:/docker-entrypoint-initdb.d/db.sql"`
+  - Si se desea usar una base de datos ya con algun script este se debe de llamar db.sql y debe de estar en la raiz de el proyecto, o cambiar esto en docker-compose.yml en la siguiente linea ` - "./db.sql:/docker-entrypoint-initdb.d/db.sql"`

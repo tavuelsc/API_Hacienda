@@ -21,8 +21,7 @@ function check_XML()
     function libxml_display_error($error)
     {
         $return = "<br/>\n";
-        switch ($error->level)
-        {
+        switch ($error->level) {
             case LIBXML_ERR_WARNING:
                 $return .= "<b>Warning $error->code</b>: ";
                 break;
@@ -51,8 +50,7 @@ function check_XML()
     {
         $errors = libxml_get_errors();
 
-        foreach ($errors as $error)
-        {
+        foreach ($errors as $error) {
             print libxml_display_error($error);
         }
 
@@ -60,13 +58,11 @@ function check_XML()
     }
 
     $tipoDoc = params_get('tipoDocumento');
-    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FEC, FEE");
+    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE", "FEC", "FEE");
 
     grace_debug($tipoDoc);
-    if (in_array($tipoDoc, $tipos))
-    {
-        switch ($tipoDoc)
-        {
+    if (in_array($tipoDoc, $tipos)) {
+        switch ($tipoDoc) {
             case 'FE': //Factura Electronica
             {
                 // Enable user error handling
@@ -109,9 +105,6 @@ function check_XML()
             default:
                 break;
         }
-    }
-    else
+    } else
         return "No se encuentra tipo de documento";
 }
-
-?>

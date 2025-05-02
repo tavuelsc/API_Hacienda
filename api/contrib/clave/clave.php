@@ -147,7 +147,8 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     }
 
     $tipoDoc = params_get('tipoDocumento');
-    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FEC", "FEE");
+    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE", "FEC", "FEE");
+
     grace_debug($tipoDoc);
     if (in_array($tipoDoc, $tipos))
     {

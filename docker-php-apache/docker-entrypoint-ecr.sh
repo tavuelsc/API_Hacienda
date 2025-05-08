@@ -43,14 +43,6 @@ setUpCryptoKey() {
     done
     echo "[$(date -u +%d-%m-%Y_%H-%S-%N)][${0}] Apache is Up"
 
-    # Generate cryptoKey if it's missing
-    echo "[$(date -u +%d-%m-%Y_%H-%S-%N)][${0}] Trying to retrieve CryptoKey"
-    CRYPTO_KEY_JSON=$(curl -s "http://${LOCALHOSTNAME}:80/api.php?w=crypto&r=makeKey" -o /var/www/html/cryptoKey.json)
-    echo "[$(date -u +%d-%m-%Y_%H-%S-%N)][${0}] Retrieved JSON: ${CRYPTO_KEY_JSON}"
-    
-    CRYPTO_KEY=$(cat /var/www/html/cryptoKey.json | awk -F'"' '/"resp"/ {print $4}')
-    echo "[$(date -u +%d-%m-%Y_%H-%S-%N)][${0}] CryptoKey set to: ${CRYPTO_KEY}"
-
     # Replace cryptoKey in settings.php
     sed -i "s/{cryptoKey}/${CRYPTO_KEY}/g" "${SETTINGS_FILE_PATH}"
     

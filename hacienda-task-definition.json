@@ -17,7 +17,13 @@
       "essential": true,
       "environment": [],
       "environmentFiles": [],
-      "mountPoints": [],
+      "mountPoints": [
+        {
+          "sourceVolume": "hacienda-files",
+          "containerPath": "/var/www/api/files",
+          "readOnly": false
+        }
+      ],
       "volumesFrom": [],
       "ulimits": [],
       "logConfiguration": {
@@ -33,6 +39,10 @@
       "systemControls": [],
       "secrets": [
         {
+          "name": "CRYPTO_KEY",
+          "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/CRYPTO_KEY"
+        },
+        {
           "name": "DB_HOST",
           "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/DB_HOST"
         },
@@ -47,10 +57,6 @@
         {
           "name": "DB_USER",
           "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/DB_USER"
-        },
-        {
-          "name": "CRYPTO_KEY",
-          "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/CRYPTO_KEY"
         }
       ]
     }
@@ -60,7 +66,20 @@
   "executionRoleArn": "arn:aws:iam::730335381308:role/ecsProdTaskExecutionRole",
   "networkMode": "awsvpc",
   "revision": 1,
-  "volumes": [],
+  "volumes": [
+    {
+      "name": "hacienda-files",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "fs-06c02e873a1be2a20",
+        "rootDirectory": "/",
+        "transitEncryption": "ENABLED",
+        "authorizationConfig": {
+          "accessPointId": "fsap-01d9d9e3973c64793",
+          "iam": "DISABLED"
+        }
+      }
+    }
+  ],
   "status": "ACTIVE",
   "requiresAttributes": [
     {
@@ -92,10 +111,9 @@
     }
   ],
   "placementConstraints": [],
-  "compatibilities": ["EC2", "FARGATE"],
   "requiresCompatibilities": ["FARGATE"],
-  "cpu": "1024",
-  "memory": "2048",
+  "cpu": "256",
+  "memory": "512",
   "runtimePlatform": {
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"

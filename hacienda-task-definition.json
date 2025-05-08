@@ -1,0 +1,106 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:730335381308:task-definition/bop-task-definition:1",
+  "containerDefinitions": [
+    {
+      "name": "hacienda",
+      "image": "730335381308.dkr.ecr.us-east-1.amazonaws.com/hacienda",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "hacienda-80-tcp",
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/bop-task-definition",
+          "awslogs-create-group": "true",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "systemControls": [],
+      "secrets": [
+        {
+          "name": "DB_HOST",
+          "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/DB_HOST"
+        },
+        {
+          "name": "DB_NAME",
+          "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/DB_NAME"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/DB_PASS"
+        },
+        {
+          "name": "DB_USER",
+          "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/DB_USER"
+        },
+        {
+          "name": "CRYPTO_KEY",
+          "valueFrom": "arn:aws:ssm:us-east-1:730335381308:parameter/CRYPTO_KEY"
+        }
+      ]
+    }
+  ],
+  "family": "hacienda-task-definition",
+  "taskRoleArn": "arn:aws:iam::730335381308:role/ecsProdTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::730335381308:role/ecsProdTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "revision": 1,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": ["EC2", "FARGATE"],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "registeredAt": "2024-07-15T22:04:58.639Z",
+  "registeredBy": "arn:aws:iam::730335381308:root",
+  "tags": []
+}

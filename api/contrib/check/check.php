@@ -65,7 +65,7 @@ function check_XML()
         switch ($tipoDoc) {
             case 'FE': //Factura Electronica
             {
-                // Enable user error handling 
+                // Enable user error handling
                 libxml_use_internal_errors(true);
 
                 $xml = new DOMDocument();
@@ -96,10 +96,10 @@ function check_XML()
             case 'RCE': // Rechazo Comprobante Electronico
                 $tipoDocumento = "07";
                 break;
-            case 'FEC': // Factura electrónica de compra
+            case 'FEC': // Factura Electronica de Compra
                 $tipoDocumento = "08";
                 break;
-            case 'FEE': // Factura electronica de exportacion
+            case 'FEE': // Factura Electronica de Exportación
                 $tipoDocumento = "09";
                 break;
             default:

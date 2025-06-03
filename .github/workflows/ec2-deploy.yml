@@ -1,0 +1,34 @@
+name: Fargate Deploy API Hacienda
+
+on:
+  push:
+    branches: [sync, develop, master]
+
+jobs:
+  build-and-deploy:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: 🎉 Deploy to Prod Server
+        if: github.ref_name == 'master'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            cd /home/ec2-user/tavuel/API_Hacienda
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+            sh deploy.sh   sh deploy.sh ${{ secrets.EFS }} ${{ secrets.URL }}
+      - name: 🎉 Deploy to Develop Server
+        if: github.ref_name == 'sync'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_DEV }}
+          username: ${{ secrets.EC2_USER_DEV }}
+          key: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
+          script: |
+            cd /home/ec2-user/tavuel/API_Hacienda
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+            sh deploy.sh ${{ secrets.EFS_DEV }} ${{ secrets.URL_DEV }}

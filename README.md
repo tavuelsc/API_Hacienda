@@ -87,5 +87,36 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 * Envió a Hacienda del xml de Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
 * Consulta de estado de los comprobantes
 
+### Solución Rápida para Archivos P12 de Hacienda con OpenSSL Moderno
+Si estás utilizando una versión reciente de OpenSSL en tu servidor, es posible que los archivos P12 generados por Hacienda presenten problemas de compatibilidad debido a su antigüedad. En lugar de convertir los archivos, podemos configurar OpenSSL para que soporte formatos legados. Sigue estos pasos para solucionar el inconveniente:
+1. Accede al servidor donde se encuentra alojada la API de Hacienda.
+2. Navega hasta el directorio `/etc/pki/tls/`.
+3. Abre el archivo `openssl.cnf` con un editor de texto. Necesitarás permisos de administrador o root.
+    1. Asegúrate de que la línea `providers = provider_sect` esté presente y sin comentar. Si no está, agrégala bajo la sección `[openssl_init]`:
+        ```
+        [openssl_init]
+        providers = provider_sect
+        ```
+    2. Localiza la sección `[provider_sect]` y verifica que `legacy = legacy_sect` esté presente y sin comentar. Esto le indica a OpenSSL que cargue el proveedor de compatibilidad legada:
+        ```
+        [provider_sect]
+        default = default_sect
+        legacy = legacy_sect
+        ```
+    3. Busca o añade las siguientes dos secciones para activar los proveedores por defecto y legados:
+        ```
+        [default_sect]
+        activate = 1
+
+        [legacy_sect]
+        activate = 1
+        ```
+Una vez realizados los cambios en el archivo `openssl.cnf`, es necesario reiniciar el proceso `php-fpm` para que la configuración surta efecto. Puedes hacerlo con el siguiente comando:
+```
+sudo systemctl restart php-fpm
+```
+   
 #### Observations
 * ALTER TABLE files MODIFY COLUMN md5 VARCHAR(40);
+
+

@@ -340,17 +340,19 @@ function users_logMeIn()
         grace_debug("username based login");
         $user = users_load(array('userName' => $userName));
     }
+    grace_debug(password_verify(params_get('pwd', ''), users_deshash($user->pwd)));
+    grace_debug(sprintf("Not able to login %s ", params_get('pwd', '')));
 
     if (password_verify(params_get('pwd', ''), users_deshash($user->pwd)))
     {
         // Create a token
-        grace_debug("Able to login");
+        grace_debug("Able to login hash");
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName,'idUser'=>$user->idUser);
     }
     else if ($user->pwd == md5_hash(params_get('pwd', '')))
     {
         // Create a token
-        grace_debug("Able to login");
+        grace_debug("Able to login md5");
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName,'idUser'=>$user->idUser);
     }
     else
